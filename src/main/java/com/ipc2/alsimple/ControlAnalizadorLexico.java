@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author Jonwil
  */
-public class ALSimple {
+public class ControlAnalizadorLexico {
     private int linea = 1;
     private int columna = 0;
     private int iterador = 0;
@@ -34,7 +34,7 @@ public class ALSimple {
                                                     "N","O","P","Q","R","S","T","U","V","W","X","Y","Z", "_"}; 
     private String [] alfabetoId_ConstantesNumericas = {"0","1","2","3","4","5","6","7","8","9"}; 
 
-    public ALSimple() {
+    public ControlAnalizadorLexico() {
         listTokens = new ArrayList<>();
         alfabeto = new HashMap();
         caracteresIngresados = textoIngresado.toCharArray();

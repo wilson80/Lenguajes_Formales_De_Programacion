@@ -7,7 +7,7 @@ package com.ipc2.alsimple;
  */
 public class NewClass {
     public static void main(String[] args) {
-        ALSimple primeraPrueba = new ALSimple();
+        ControlAnalizadorLexico primeraPrueba = new ControlAnalizadorLexico();
         primeraPrueba.analizador();
         
         
