@@ -11,4 +11,55 @@
         <exec.mainClass>com.ipc2.alsimple.ALSimple</exec.mainClass>
     </properties>
     <name>AnalizadorLexicoLenguajesFormales</name>
+     <dependencies>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE130</version>
+            
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    
+                    <archive>
+                        <manifest>
+                            <mainClass>com.ipc2.alsimple.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+        
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.ipc2.alsimple.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+        
+            </plugin>
+        </plugins>
+    </build>
+    
+    
 </project>
+
+

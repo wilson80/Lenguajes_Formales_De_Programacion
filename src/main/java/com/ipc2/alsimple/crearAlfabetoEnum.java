@@ -40,6 +40,16 @@ public class crearAlfabetoEnum {
         alfabeto.put("true", TokenEnum.CONSTANTES_TRUE);
         alfabeto.put("false", TokenEnum.CONSTANTES_FALSE);
         alfabeto.put("#", TokenEnum.COMENTARIO);
+        alfabeto.put("0", TokenEnum.CONSTANTES_NUMERICAS);
+        alfabeto.put("1", TokenEnum.CONSTANTES_NUMERICAS);
+        alfabeto.put("2", TokenEnum.CONSTANTES_NUMERICAS);
+        alfabeto.put("3", TokenEnum.CONSTANTES_NUMERICAS);
+        alfabeto.put("4", TokenEnum.CONSTANTES_NUMERICAS);
+        alfabeto.put("5", TokenEnum.CONSTANTES_NUMERICAS);
+        alfabeto.put("6", TokenEnum.CONSTANTES_NUMERICAS);
+        alfabeto.put("7", TokenEnum.CONSTANTES_NUMERICAS);
+        alfabeto.put("8", TokenEnum.CONSTANTES_NUMERICAS);
+        alfabeto.put("9", TokenEnum.CONSTANTES_NUMERICAS);
         
     }
 

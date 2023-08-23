@@ -1,4 +1,12 @@
-Tokens\Tokens.class
-com\ipc2\alsimple\ALSimple.class
+Vista\VistaGeneral$1.class
+Vista\VistaGeneral.class
+Tokens\Token.class
+Vista\VistaGraficos$1.class
+Vista\pruebas$1.class
+com\ipc2\alsimple\ControlAnalizadorLexico.class
+Vista\VistaGeneral$2.class
 AL\TokenEnum.class
-com\ipc2\alsimple\NewClass.class
+Vista\pruebas.class
+Vista\VistaGraficos.class
+com\ipc2\alsimple\crearAlfabetoEnum.class
+com\ipc2\alsimple\Main.class

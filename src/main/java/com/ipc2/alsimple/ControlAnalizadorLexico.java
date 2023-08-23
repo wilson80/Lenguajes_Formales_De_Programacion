@@ -19,11 +19,13 @@ public class ControlAnalizadorLexico {
     private int iterador = 0;
     private int cadenaAperturai = 0;
     private String buffer = "";
-    private String textoIngresado = "\"cadena de textoo\" def 1numero numero numero("; //Entrada
+    private String textoIngresado = "\"cadena de textoo\"  25 def 1numero numero numero("; //Entrada
+//    private String textoIngresado = "12 "; //Entrada
     private String identificador = "identificador";
     char [] caracteresIngresados;
     private boolean dentroDeComentario = false;
     private boolean dentroDeCadena = false;
+    private boolean dentroDeEnteros = false;
     private boolean reconocerIdentificador = false;
     private List<Token> listTokens;
     private Map<String, TokenEnum> alfabeto;
@@ -32,7 +34,7 @@ public class ControlAnalizadorLexico {
                                                   "q","r","s","t","u","v","w","x","y","z", "_"}; 
     private String [] alfabetoIdSinNumeroMasyusculas = {"A","B","C","D","E","F","G","H","I","J","K","L","M",
                                                     "N","O","P","Q","R","S","T","U","V","W","X","Y","Z", "_"}; 
-    private String [] alfabetoId_ConstantesNumericas = {"0","1","2","3","4","5","6","7","8","9"}; 
+    private char [] alfabetoId_ConstantesNumericas = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' }; 
 
     public ControlAnalizadorLexico() {
         listTokens = new ArrayList<>();
@@ -48,6 +50,8 @@ public class ControlAnalizadorLexico {
             System.out.println("Buffer>>>>>>>>>>>: " + buffer);
             char valor = caracteresIngresados[iterador];
             
+            //constantes Numericas Pendiente
+            
             if(!dentroDeCadena){
                 verificarComentario(valor);
             }
@@ -55,9 +59,8 @@ public class ControlAnalizadorLexico {
                     buscarCadena(valor);
             }
             
-            
-            if(dentroDeComentario==false && dentroDeCadena==false){      //Si esta reconociendo un comentario no entra en el switch
-                switchGeneral(valor);
+            if(dentroDeComentario==false && dentroDeCadena==false){      //Si esta reconociendo un comentario no entra en el switch                
+                switchGeneral(valor);                                    //dentro del switch reconoce palabras reservadas, signos de operacion y otros.           
             }
             
             if(!dentroDeCadena){
@@ -66,6 +69,8 @@ public class ControlAnalizadorLexico {
             if(!dentroDeComentario){
                 reconocerCadena(valor);             //identifica el cierre de la cadena de caracteres y agrega la cadena
             }
+            
+            
             
             
             if(iterador==(caracteresIngresados.length-1)) {        //Para reconocer el ultimo Token 
@@ -77,6 +82,29 @@ public class ControlAnalizadorLexico {
             imprimirTokens();
         
     }
+    
+    public void reconocerEnteros(char valor){       // 888 
+        if(dentroDeCadena==false && dentroDeComentario == false){
+            for (int i = 0; i < alfabetoId_ConstantesNumericas.length; i++) {
+               if(valor==alfabetoId_ConstantesNumericas[i]){
+                   dentroDeEnteros = true;
+                }
+            
+            }
+            
+        }
+    }
+    
+    
+    
+//    public void buscandoEnteros(char valor){
+//        for (int i = 0; i < alfabetoId_ConstantesNumericas.length; i++) {
+//               if(valor==alfabetoId_ConstantesNumericas[i]){
+//                   dentroDeEnteros = true;
+//                }
+//        }
+//    }
+    
     
     public void buscarCadena(char valor){
         if(!dentroDeCadena){
@@ -214,7 +242,10 @@ public class ControlAnalizadorLexico {
     
     
     public void verificarComentario(char valor){    //Cuando encuentre el primer Caracter igual a # empieza a reconocer un comentario
-            if(valor=='#'){
+            if(valor=='#'){            
+                if(dentroDeEnteros){
+                    Token token = new Token(buffer, TokenEnum.CONSTANTES_NUMERICAS, linea, columna);
+                }
                 System.out.println("INICIO COMENTARIO");
                 dentroDeComentario = true;
             }
