@@ -4,6 +4,7 @@ package com.ipc2.alsimple;
 
 import AL.TokenEnum;
 import Tokens.Token;
+import Vista.VistaGeneral;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +15,15 @@ import java.util.Map;
  * @author Jonwil
  */
 public class ControlAnalizadorLexico {
+    
+    VistaGeneral vistaAnalizador;
+    
     private int linea = 1;
     private int columna = 0;
     private int iterador = 0;
     private int cadenaAperturai = 0;
     private String buffer = "";
-    private String textoIngresado = "\"cadena de textoo\"  25 def 1numero numero numero("; //Entrada
+    private String textoIngresado; //Entrada
 //    private String textoIngresado = "12 "; //Entrada
     private String identificador = "identificador";
     char [] caracteresIngresados;
@@ -36,15 +40,17 @@ public class ControlAnalizadorLexico {
                                                     "N","O","P","Q","R","S","T","U","V","W","X","Y","Z", "_"}; 
     private char [] alfabetoId_ConstantesNumericas = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9' }; 
 
-    public ControlAnalizadorLexico() {
+    public ControlAnalizadorLexico(VistaGeneral vistaAnalizador) {
+        this.vistaAnalizador = vistaAnalizador;
         listTokens = new ArrayList<>();
         alfabeto = new HashMap();
-        caracteresIngresados = textoIngresado.toCharArray();
         crearAlfabetoEnum alfabeto = new crearAlfabetoEnum();
         this.alfabeto = alfabeto.getAlfabeto();
     }
     
-    public void analizador() {
+    public void analizar() {
+        textoIngresado = vistaAnalizador.getCajonTexto().getText();
+        caracteresIngresados = textoIngresado.toCharArray();
         System.out.println("Entrada: " +textoIngresado);
         for (int i = 0; iterador < caracteresIngresados.length; iterador++) {
             System.out.println("Buffer>>>>>>>>>>>: " + buffer);
@@ -296,5 +302,11 @@ public class ControlAnalizadorLexico {
         }
     }
 
+    public List<Token> getListTokens() {
+        return listTokens;
+    }
+    
+    
+    
     
 }

@@ -53,6 +53,23 @@ public class Token {
                        + " linea: "+linea + ","
                        + " columna: "+columna+">";
     }    
+
+    public String getLexema() {
+        return lexema;
+    }
+
+    public int getLinea() {
+        return linea;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public TokenEnum getToken() {
+        return token;
+    }
+    
     
     
     

@@ -4,25 +4,33 @@
  */
 package Vista;
 
+import com.ipc2.alsimple.ControlAnalizadorLexico;
 import java.io.File;
 import java.io.FileReader;
 import javax.swing.JFileChooser;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author Jonwil
  */
 public class VistaGeneral extends javax.swing.JFrame {
+    ControlAnalizadorLexico controlAnalizador;
+    
+    private int contador = 0;
 
     /**
      * Creates new form VistaGeneral
      */
     public VistaGeneral() {
+        controlAnalizador = new ControlAnalizadorLexico(this);
+        
         initComponents();
+        
     }
+    
 
     
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -30,6 +38,8 @@ public class VistaGeneral extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         cajonTexto = new javax.swing.JTextArea();
         panelError = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        areaErrores = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         panelOpciones = new javax.swing.JPanel();
         archivo = new javax.swing.JButton();
@@ -37,6 +47,7 @@ public class VistaGeneral extends javax.swing.JFrame {
         botonAyuda = new javax.swing.JButton();
         botonAcercaDe = new javax.swing.JButton();
         botonAnalizar = new javax.swing.JButton();
+        botonLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,15 +76,25 @@ public class VistaGeneral extends javax.swing.JFrame {
 
         panelError.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 0, 153), 2, true));
 
+        areaErrores.setColumns(20);
+        areaErrores.setRows(5);
+        jScrollPane2.setViewportView(areaErrores);
+
         javax.swing.GroupLayout panelErrorLayout = new javax.swing.GroupLayout(panelError);
         panelError.setLayout(panelErrorLayout);
         panelErrorLayout.setHorizontalGroup(
             panelErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelErrorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         panelErrorLayout.setVerticalGroup(
             panelErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 159, Short.MAX_VALUE)
+            .addGroup(panelErrorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel1.setText("ERROR");
@@ -109,6 +130,13 @@ public class VistaGeneral extends javax.swing.JFrame {
             }
         });
 
+        botonLimpiar.setText("Limpiar");
+        botonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,10 +151,15 @@ public class VistaGeneral extends javax.swing.JFrame {
                                 .addComponent(panelTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonAnalizar)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(botonLimpiar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonAnalizar)))
                         .addGap(77, 77, 77))))
         );
         layout.setVerticalGroup(
@@ -136,7 +169,9 @@ public class VistaGeneral extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonAnalizar))
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonLimpiar)
+                .addGap(18, 18, 18)
                 .addComponent(panelTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
@@ -153,6 +188,7 @@ public class VistaGeneral extends javax.swing.JFrame {
     }//GEN-LAST:event_botonGenerarGraficoActionPerformed
 
     private void archivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivoActionPerformed
+        contador++;
         JFileChooser jFileChooser = new JFileChooser();
         
         int selecccion = jFileChooser.showOpenDialog(this);
@@ -177,52 +213,52 @@ public class VistaGeneral extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_archivoActionPerformed
 
+    public JTextArea getCajonTexto() {
+        return cajonTexto;
+    }
+
+    public void setCajonTexto(String cajonTexto) {
+        this.cajonTexto.setText(cajonTexto);
+    }
+
+    
+
     private void botonAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnalizarActionPerformed
-        // TODO add your handling code here:
+        controlAnalizador.analizar();
+        MostraErrores mostrarErr;
+        mostrarErr = new MostraErrores(controlAnalizador.getListTokens(), this);
+        mostrarErr.clasificarerrores();
     }//GEN-LAST:event_botonAnalizarActionPerformed
 
- 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed
+        cajonTexto.setText("");
+        areaErrores.setText("");
+    }//GEN-LAST:event_botonLimpiarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaGeneral().setVisible(true);
-            }
-        });
+    public JTextArea getAreaErrores() {
+        return areaErrores;
     }
+
+    public void setAreaErrores(String areaErrores) {
+        this.areaErrores.setText(areaErrores);
+    }
+
+    
+    
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton archivo;
+    private javax.swing.JTextArea areaErrores;
     private javax.swing.JButton botonAcercaDe;
     private javax.swing.JButton botonAnalizar;
     private javax.swing.JButton botonAyuda;
     private javax.swing.JButton botonGenerarGrafico;
+    private javax.swing.JButton botonLimpiar;
     private javax.swing.JTextArea cajonTexto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelError;
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JPanel panelTexto;
